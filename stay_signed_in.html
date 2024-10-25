@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stay Signed In</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #e0d4d4, #e8e5e7, #dce8f0, #f1ddd4, #dcecdb, #f4ecdb, #f4f3e4, #dcece4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            width: 400px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+        .logo-place {
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        .logo-place img {
+            width: 22px;
+        }
+        .logo-place p {
+            font-weight: bold;
+            color: #877f7f;
+        }
+        h2 {
+            color: #484646;
+        }
+        .email-display {
+            color: #484646;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .checkbox-container input {
+            margin-right: 10px;
+        }
+        .button-container {
+            margin-top: 20px;
+            display: flex;
+            gap: 3px;
+            margin-left: 9em;
+        }
+        .button-container button {
+            width: 120px;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .button-container1 button {
+            background-color: rgba(117, 110, 110, 0.331); /* Default color for No */
+            color: black;
+        }
+        .button-container1 button:hover {
+            background-color: rgba(117, 110, 110, 0.484); /* Hover color for No */
+        }
+        .button-container2 button {
+            background-color: #0078d4; /* Default color for Yes */
+            color: white;
+        }
+        .button-container2 button:hover {
+            background-color: #0467b2; /* Hover color for Yes */
+        }
+        #p-sign {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="inner-container">
+            <div class="logo-place">
+                <img src="/logo.svg" alt="logo">
+                <p>Microsoft</p>
+            </div>
+            <p id="displayedEmail" class="email-display">example@email.com</p>
+            <h2>Stay signed in?</h2>
+            <p>Do this to reduce the number of times you're asked to sign in.</p>
+            <div class="checkbox-container">
+                <input type="checkbox" id="dontShowAgain">
+                <label for="dontShowAgain"><p id="p-sign">Don't show this again</p></label>
+            </div>
+            <div class="button-container">
+                <div class="button-container1">
+                    <button id="noBtn">No</button>
+                </div>
+                <div class="button-container2">
+                    <button id="yesBtn">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Retrieve email from previous page and display it
+        const displayedEmail = document.getElementById('displayedEmail');
+        const email = localStorage.getItem('email');
+        if (email) {
+            displayedEmail.textContent = email;
+        }
+
+        // Redirect when Yes or No buttons are clicked
+        document.getElementById('yesBtn').addEventListener('click', function() {
+            window.location.href = "https://www.office.com/";
+        });
+
+        document.getElementById('noBtn').addEventListener('click', function() {
+            window.location.href = "https://www.office.com/";
+        });
+    </script>
+</body>
+</html>

